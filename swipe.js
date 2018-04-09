@@ -39,6 +39,7 @@
     var index = parseInt(options.startSlide, 10) || 0;
     var speed = options.speed || 300;
     var continuous = options.continuous = options.continuous !== undefined ? options.continuous : true;
+    var offsetRight = options.offsetRight = options.offsetRight !== undefined ? options.offsetRight : 0;
 
     function setup() {
 
@@ -61,9 +62,8 @@
 
       // determine width of each slide
       width = Math.round(container.getBoundingClientRect().width || container.offsetWidth);
-
       element.style.width = (slides.length * width) + 'px';
-
+      width = width - offsetRight;
       // stack elements
       var pos = slides.length;
       while(pos--) {
@@ -77,7 +77,8 @@
           slide.style.left = (pos * -width) + 'px';
           move(pos, index > pos ? -width : (index < pos ? width : 0), 0);
         }
-
+        slide.style.zIndex = slides.length - pos;
+        slide.style.paddingRight = offsetRight > 0 ? '8px' : '';
       }
 
       // reposition elements before and after index
@@ -87,9 +88,9 @@
       }
 
       if (!browser.transitions) element.style.left = (index * -width) + 'px';
-
       container.style.visibility = 'visible';
 
+  
     }
 
     function prev() {
@@ -114,7 +115,7 @@
     }
 
     function slide(to, slideSpeed) {
-
+      console.log('swipe slide')
       // do nothing if already on requested slide
       if (index == to) return;
 
