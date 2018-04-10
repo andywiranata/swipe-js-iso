@@ -78,7 +78,8 @@
           move(pos, index > pos ? -width : (index < pos ? width : 0), 0);
         }
         slide.style.zIndex = slides.length - pos;
-        slide.style.paddingRight = offsetRight > 0 ? '8px' : '';
+        slide.style.paddingRight = offsetRight > 0 ? '4px' : '';
+        slide.style.paddingLeft = offsetRight > 0 ? '15px' : '';
       }
 
       // reposition elements before and after index
